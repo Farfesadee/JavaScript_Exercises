@@ -21,6 +21,8 @@
     margin: 10px 10px;
     background-color: beige;
     text-align: center;
+    justify-content: center;
+    width: 50%;
 }
 
 .demo-button {
@@ -52,4 +54,5 @@
     border-radius: 5px;
     font-family: 'Courier New', monospace;
     border-left: 5px solid #28a745;
+    width: 50%;
 }
