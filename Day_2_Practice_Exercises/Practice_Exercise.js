@@ -181,21 +181,56 @@ function atmSimulation() {
 // - Return helpful, personalized advice
 // - Handle edge cases (invalid inputs)
 
-function personalAssistant(time, weather, day) {
-  let message = day === "Workday" ? "Get focused for work!" :
-                day === "Weekend" ? "Chill out, it's the weekend!" :
-                day === "Holiday" ? "Happy holiday!" : "Invalid day type."; 
-  message += (weather === "rainy") ? "Don't forget your umbrella" :
-             (weather === "sunny") ? "Grab some sunscreen if you're heading out" :
-             (weather === "cloudyy") ? "Might be a chill day." : "Weather condition not recognized.";
-  if (time < 12 && time >= 0) {
-    message += "Have a great morning!";
-  } else if (time >= 12 && time < 18) {
-    message += "Have a productive afternoon!";
-  } else if (time >= 18 && time <= 23) {
-    message += "Wind down for the evening";
-  } else {
-    message += "Invalid time.";
-  }
-  console.log(message);
-}
+// function personalAssistant() {
+//   let message = day === "Workday" ? "Get focused for work!" :
+//                 day === "Weekend" ? "Chill out, it's the weekend!" :
+//                 day === "Holiday" ? "Happy holiday!" : "Invalid day type."; 
+//   message += (weather === "rainy") ? "Don't forget your umbrella" :
+//              (weather === "sunny") ? "Grab some sunscreen if you're heading out" :
+//              (weather === "cloudyy") ? "Might be a chill day." : "Weather condition not recognized.";
+//   if (time < 12 && time >= 0) {
+//     message += "Have a great morning!";
+//   } else if (time >= 12 && time < 18) {
+//     message += "Have a productive afternoon!";
+//   } else if (time >= 18 && time <= 23) {
+//     message += "Wind down for the evening";
+//   } else {
+//     message += "Invalid time.";
+//   }
+//   console.log(message);
+// }
+
+
+function personalAssistant() {
+            let hour = prompt("Enter time in hours");
+            let weather = prompt("Is it a sunny, cloudy or rainy day?")
+            let dayType = prompt("is it a workday, weekend, holiday?")
+            if (hour >= 5 && hour < 12) {
+                console.log("Good morning!");
+            } else if (hour >= 12 && hour < 18) {
+               console.log("Good afternoon!");
+            } else if (hour >= 18 && hour < 22) {
+                console.log("Good evening! ");
+            } else {
+                console.log("It's late, you should get some rest. ");
+            }
+             if (dayType === "workday") {
+                if (hour >= 9 && hour <= 17) {
+                console.log("Focus on your tasks. ");
+                console.log(weather === "rainy" ? "Don't forget your umbrella! " : "A short walk could refresh you. ");
+                } else {
+                console.log("Try to relax after work. ");
+                }
+            } else if (dayType === "weekend") {
+                    console.log("Enjoy your weekend! ");
+                   console.log(weather === "sunny" ? "Perfect time for outdoor activities. " : "Maybe watch a movie indoors. ");
+            } else if (dayType === "holiday") {
+                    console.log( "Happy holiday! ");
+                    console.log((weather === "rainy" || weather === "cloudy")
+                    ? "Cozy up with a book or some tea. "
+                    : "Great day to celebrate outside. ");
+                }
+                if (dayType === "workday" && (hour < 9 || hour > 17)) {
+                    console.log("Remember to maintain work-life balance.");
+                }
+        }
