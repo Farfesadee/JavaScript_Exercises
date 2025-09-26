@@ -234,3 +234,191 @@ function personalAssistant() {
                     console.log("Remember to maintain work-life balance.");
                 }
         }
+
+
+
+
+
+// Practice Exercise 6
+
+// Task: Apply Common Function Patterns  
+
+// Requirements:  
+// 1. Create a validation function `isStrongPassword(password)` that checks:  
+//    - At least 8 characters  
+//    - Contains a number  
+//    - Contains a special character  
+// 2. Create a formatter function `formatPercentage(value)` that always shows one decimal place with `%`.  
+// 3. Create a calculator function `calculateCompoundInterest(principal, rate, years)` using the formula:  
+//    \[
+//    A = P \times (1 + r)^t
+//    \]  
+// 4. Create a decision maker function `canGraduate(credits, gpa)` that:  
+//    - Requires at least 120 credits  
+//    - Requires GPA ≥ 2.0  
+// 5. Create a utility function `reverseWords(sentence)` that takes a string and returns the sentence with the words reversed.  
+
+// Challenge: Extend `reverseWords` to also capitalize the first letter of each word.
+
+
+function isStrongPassword(password) {
+  const hasNumber = /\d/;
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+  return password.length >= 8 && hasNumber.test(password) && hasSpecialChar.test(password);
+}
+
+
+function formatPercentage(value) {
+  return `${value.toFixed(1)}%`;
+}
+
+function calculateCompoundInterest(principal, rate, years) {
+  const amount = principal * Math.pow(1 + rate, years);
+  return amount.toFixed(2);
+}
+
+
+function canGraduate(credits, gpa) {
+  return credits >= 120 && gpa >= 2.0
+    ? "Eligible to graduate"
+    : "Not eligible to graduate";
+}
+
+
+function reverseWords(sentence) {
+  return sentence
+    .split(' ')
+    .reverse()
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
+console.log(isStrongPassword("Pass123!")); // true
+console.log(formatPercentage(87.456));     // "87.5%"
+console.log(calculateCompoundInterest(1000, 0.05, 3)); // "1157.63"
+console.log(canGraduate(130, 2.5));         // "✅ Eligible to graduate"
+console.log(reverseWords("hello world from nigeria")); // "Nigeria From World Hello"
+
+
+
+
+
+
+
+
+
+
+
+// Practice Exercise 7  
+
+// Tast: Smart Shopping Calculator
+
+// Time to combine everything you've learned! Create a comprehensive shopping calculator that uses functions, conditionals, and different scopes to solve real-world problems.
+
+// Your Challenge:  
+// Build a smart shopping system with multiple functions that work together:
+
+// 1. Product Calculator - Calculate item totals with discounts  
+// 2. Tax Calculator - Apply different tax rates based on location  
+// 3. Shipping Calculator - Calculate shipping based on weight and distance  
+// 4. Membership Discounts - Apply different member benefits  
+// 5. Final Receipt Generator - Put it all together with formatting  
+
+// Requirements:  
+// - Use at least 5 functions  
+// - Include parameter validation in each function  
+// - Use if/else statements for different scenarios  
+// - Include at least one ternary operator  
+// - Use proper variable scope  
+// - Handle edge cases (invalid inputs)  
+// - Return well-formatted results  
+
+
+
+// 1. Product Calculator
+function calculateProductTotal(price, quantity, discount = 0) {
+  if (price < 0 || quantity < 0 || discount < 0 || discount > 100) {
+    return "Invalid product input.";
+  }
+  const subtotal = price * quantity;
+  const discountAmount = subtotal * (discount / 100);
+  return subtotal - discountAmount;
+}
+
+// 2. Tax Calculator
+function calculateTax(total, location) {
+  if (typeof total !== 'number' || total < 0) return "Invalid total amount.";
+
+  let taxRate;
+  if (location === "Lagos") taxRate = 0.075;
+  else if (location === "Abuja") taxRate = 0.05;
+  else if (location === "Ogun") taxRate = 0.065;
+  else taxRate = 0.06; // default
+
+  return total * taxRate;
+}
+
+// 3. Shipping Calculator
+function calculateShipping(weight, distance) {
+  if (weight <= 0 || distance <= 0) return "Invalid shipping input.";
+
+  let baseRate = weight * 0.5;
+  let distanceRate = distance * 0.1;
+  return baseRate + distanceRate;
+}
+
+// 4. Membership Discounts
+function applyMembershipDiscount(total, membershipLevel) {
+  if (typeof total !== 'number' || total < 0) return "Invalid total.";
+
+  let discountRate;
+  if (membershipLevel === "Gold") discountRate = 0.15;
+  else if (membershipLevel === "Silver") discountRate = 0.1;
+  else if (membershipLevel === "Bronze") discountRate = 0.05;
+  else discountRate = 0;
+
+  return total - (total * discountRate);
+}
+
+// 5. Final Receipt Generator
+function generateReceipt(productName, price, quantity, location, weight, distance, membershipLevel, discount = 0) {
+  const productTotal = calculateProductTotal(price, quantity, discount);
+  if (typeof productTotal === "string") return productTotal;
+
+  const tax = calculateTax(productTotal, location);
+  if (typeof tax === "string") return tax;
+
+  const shipping = calculateShipping(weight, distance);
+  if (typeof shipping === "string") return shipping;
+
+  const totalBeforeMembership = productTotal + tax + shipping;
+  const finalTotal = applyMembershipDiscount(totalBeforeMembership, membershipLevel);
+  if (typeof finalTotal === "string") return finalTotal;
+
+  // Ternary operator for free shipping
+  const freeShipping = membershipLevel === "Gold" && finalTotal > 500 ? true : false;
+  const shippingDisplay = freeShipping ? "Free (Gold Member Bonus)" : `₦${shipping.toFixed(2)}`;
+
+  return `
+Receipt for ${productName}
+----------------------------------------
+Price per item: ₦${price.toFixed(2)}
+Quantity: ${quantity}
+Discount: ${discount}% 
+Subtotal: ₦${productTotal.toFixed(2)}
+
+Location: ${location}
+Tax: ₦${tax.toFixed(2)}
+
+Shipping (${weight}kg over ${distance}km): ${shippingDisplay}
+
+Membership Level: ${membershipLevel}
+Final Total: ₦${finalTotal.toFixed(2)}
+----------------------------------------
+Thank you for shopping with us!
+  `;
+}
+
+// 🧪 Sample Usage
+console.log(generateReceipt("Wireless Headphones", 15000, 2, "Ogun", 1.5, 30, "Gold", 10));

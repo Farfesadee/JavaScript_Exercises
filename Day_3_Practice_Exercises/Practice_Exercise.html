@@ -5,11 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="Practice_Exercise.js" defer></script>
+    <style>
+        body {
+            background-color: antiquewhite;
+            justify-content: center;
+            display: flex;
+            padding: 60px;
+            
+        }
+
+        div {
+            justify-items: center;
+            display: flex;
+            gap: 10px;
+            padding: 5px;
+            text-align: center;
+            width: 50%;
+            margin-top: 200px;
+        }
+        button {
+            background-color: bisque;
+            justify-items: center;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 5px;
+            
+        }
+
+        button:hover {
+            color: darkgreen;
+        }
+    </style>
 </head>
 <body>
     <div>
-        <button onclick="shoppingList()">Shopping List</button>
+        <button id="btn">Shopping List</button>
         <button onclick="studentGrades()">Grades Analyzer</button>
+        <button onclick="ratingSystem()">Movie Rating</button>
+        <button id="studentReportSystem">Student Report System</button>
     </div>
 </body>
 </html>
