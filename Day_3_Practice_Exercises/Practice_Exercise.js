@@ -244,8 +244,6 @@ getSortedMovies();
 // Sort the students by grade (highest → lowest) before printing the report. 
 
 
-
-
 // // Task 4
 
 document.getElementById("studentReportSystem").addEventListener("click", function() {
