@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+    textarea {
+      width: 80%;
+      height: 150px;
+      font-size: 16px;
+      padding: 10px;
+    }
+    #counter {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: black;
+    }
+    .warning {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Live Word & Character Counter</h2>
+  <textarea id="textInput" onkeyup="updateCount()"></textarea>
+  <div id="counter">Characters: 0 | Words: 0</div>
+
+  <script>
+    function updateCount() {
+      const text = document.getElementById('textInput').value;
+      const charCount = text.length;
+      const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+
+      const counter = document.getElementById('counter');
+      counter.textContent = `Characters: ${charCount} | Words: ${wordCount}`;
+
+      if (charCount > 200) {
+        counter.classList.add('warning');
+      } else {
+        counter.classList.remove('warning');
+      }
+    }
+  </script>
+
+</body>
+</html>
