@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Library</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: bisque; text-align: center; padding-top: 10%;}
+    .book { margin-bottom: 15px; }
+    button { margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Book Library</h1>
+  <div id="library"></div>
+
+  <script>
+    class Book {
+      constructor(title, author, year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.isBorrowed = false;
+      }
+
+      getSummary() {
+        return `Book: ${this.title} by ${this.author} (${this.year})`;
+      }
+
+      borrowBook() {
+        if (!this.isBorrowed) {
+          this.isBorrowed = true;
+          return `${this.title} has been borrowed.`;
+        } else {
+          return `${this.title} is already borrowed.`;
+        }
+      }
+    }
+
+    const books = [
+      new Book("Purple Hibiscus", "Chimamanda Ngozi Adichie", 2003),
+      new Book("The Famished Road", "Ben Okri", 1991)
+    ];
+
+    const libraryDiv = document.getElementById("library");
+
+    books.forEach((book, index) => {
+      const bookDiv = document.createElement("div");
+      bookDiv.className = "book";
+
+      const summary = document.createElement("p");
+      summary.textContent = book.getSummary();
+
+      const borrowBtn = document.createElement("button");
+      borrowBtn.textContent = "Borrow Book";
+      borrowBtn.onclick = () => {
+        alert(book.borrowBook());
+      };
+
+      bookDiv.appendChild(summary);
+      bookDiv.appendChild(borrowBtn);
+      libraryDiv.appendChild(bookDiv);
+    });
+  </script>
+</body>
+</html>

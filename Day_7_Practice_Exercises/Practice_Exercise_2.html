@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Report Card</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; text-align: center; background-color: bisque;}
+    .h1 { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    .student { margin-bottom: 20px; }
+    .result { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Student Report Card</h1>
+  <div id="report"></div>
+
+  <script>
+    class Student {
+      constructor(name, age, grades) {
+        this.name = name;
+        this.age = age;
+        this.grades = grades;
+      }
+
+      calculateAverage() {
+        const total = this.grades.reduce((sum, grade) => sum + grade, 0);
+        return (total / this.grades.length).toFixed(2);
+      }
+
+      getDetails() {
+        const average = this.calculateAverage();
+        const status = average < 50 ? "❌ Failed" : "✅ Passed";
+        return `Name: ${this.name}, Age: ${this.age}, Average: ${average} ${status}`;
+      }
+    }
+
+    // Create student objects
+    const student1 = new Student("Wale", 17, [65, 70, 58, 80, 78]);
+    const student2 = new Student("Chinedu", 16, [45, 38, 50, 42, 89]);
+    const student3 = new Student("Emeka", 18, [75, 80, 70, 90, 98]);
+    const student4 = new Student("Aisha", 17, [30, 40, 35, 20, 99]);
+    const student5 = new Student("Tunde", 16, [55, 60, 58, 62, 81]);
+
+    // Display report
+    const reportDiv = document.getElementById("report");
+    [student1, student2, student3, student4, student5].forEach(student => {
+      const studentDiv = document.createElement("div");
+      studentDiv.className = "student";
+      studentDiv.innerHTML = `<p class="result">${student.getDetails()}</p>`;
+      reportDiv.appendChild(studentDiv);
+    });
+  </script>
+</body>
+</html>

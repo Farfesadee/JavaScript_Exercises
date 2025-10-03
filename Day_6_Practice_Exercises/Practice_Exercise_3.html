@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Theme Switcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      margin: 40px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    /* Theme Styles */
+    .light-mode {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    .blue-mode {
+      background-color: #e0f7fa;
+      color: #01579b;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🎨 Theme Switcher</h2>
+  <button onclick="setTheme('light')">Light Mode</button>
+  <button onclick="setTheme('dark')">Dark Mode</button>
+  <button onclick="setTheme('blue')">Blue Mode</button>
+
+  <script>
+    function setTheme(mode) {
+      document.body.className = ''; // Clear existing classes
+      document.body.classList.add(`${mode}-mode`);
+      localStorage.setItem('theme', mode);
+    }
+
+    function applySavedTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
+    }
+
+    // Apply theme on page load
+    applySavedTheme();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Persistent Notes App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #timestamp {
+      margin-top: 10px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <div><h2>📝 Persistent Notes App</h2></div>
+  <textarea id="noteInput" placeholder="Type your note here..."></textarea><br>
+  <button onclick="saveNote()">Save Note</button>
+  <button onclick="loadNote()">Load Note</button>
+  <div id="timestamp"></div>
+
+  <script>
+    function saveNote() {
+      const note = document.getElementById('noteInput').value;
+      const savedAt = new Date().toLocaleString();
+      localStorage.setItem('note', note);
+      localStorage.setItem('savedAt', savedAt);
+      document.getElementById('timestamp').textContent = `Last saved at: ${savedAt}`;
+    }
+
+    function loadNote() {
+      const note = localStorage.getItem('note') || '';
+      const savedAt = localStorage.getItem('savedAt');
+      document.getElementById('noteInput').value = note;
+      document.getElementById('timestamp').textContent = savedAt
+        ? `Last saved at: ${savedAt}`
+        : 'No saved note found.';
+    }
+  </script>
+
+</body>
+</html>

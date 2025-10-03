@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px;background-color: antiquewhite; text-align: center; padding-top: 10%;}
+    .cart { margin-top: 20px; }
+    .item { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Shopping Cart</h1>
+  <div id="cartDisplay" class="cart"></div>
+
+  <script>
+    // Product class
+    class Product {
+      constructor(name, price) {
+        this.name = name;
+        this.price = price;
+      }
+    }
+
+    // Cart class
+    class Cart {
+      constructor() {
+        this.items = [];
+      }
+
+      addProduct(product, quantity) {
+        this.items.push({ product, quantity });
+      }
+
+      removeProduct(productName) {
+        this.items = this.items.filter(item => item.product.name !== productName);
+      }
+
+      getTotal() {
+        const total = this.items.reduce((sum, item) => {
+          return sum + item.product.price * item.quantity;
+        }, 0);
+
+        return total > 100 ? "Free Shipping" : `Total: ₦${total.toFixed(2)}`;
+      }
+
+      displayCart() {
+        const cartDiv = document.getElementById("cartDisplay");
+        cartDiv.innerHTML = "";
+
+        this.items.forEach(item => {
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "item";
+          itemDiv.textContent = `${item.product.name} - ₦${item.product.price} × ${item.quantity}`;
+          cartDiv.appendChild(itemDiv);
+        });
+
+        const totalDiv = document.createElement("div");
+        totalDiv.innerHTML = `<strong>${this.getTotal()}</strong>`;
+        cartDiv.appendChild(totalDiv);
+      }
+    }
+
+    // Sample usage
+    const cart = new Cart();
+    const rice = new Product("Rice", 40);
+    const oil = new Product("Vegetable Oil", 70);
+    const soap = new Product("Soap", 25);
+
+    cart.addProduct(rice, 2);   // ₦80
+    cart.addProduct(oil, 1);    // ₦70 → Total ₦150
+    cart.addProduct(soap, 1);   // ₦25 → Total ₦175
+
+    cart.displayCart();
+
+
+    // To test removal:
+    // cart.removeProduct("Soap");
+    // cart.displayCart();
+  </script>
+</body>
+</html>

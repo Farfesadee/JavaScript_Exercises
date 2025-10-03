@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vehicle Inheritance</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; text-align: center; background-color: antiquewhite; padding-top: 10%;}
+    .vehicle { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Vehicle Info</h1>
+  <div id="output"></div>
+
+  <script>
+    // Base class: Vehicle
+    class Vehicle {
+      constructor(brand, model, year) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+      }
+
+      getInfo() {
+        return `Brand: ${this.brand}, Model: ${this.model}, Year: ${this.year}`;
+      }
+
+      isOld() {
+        const currentYear = new Date().getFullYear();
+        return currentYear - this.year > 10;
+      }
+    }
+
+    // Subclass: Car
+    class Car extends Vehicle {
+      constructor(brand, model, year, fuelType) {
+        super(brand, model, year);
+        this.fuelType = fuelType;
+      }
+
+      getInfo() {
+        return `${super.getInfo()}, Fuel Type: ${this.fuelType}`;
+      }
+    }
+
+    // Create instances
+    const vehicle1 = new Vehicle("Toyota", "Corolla", 2010);
+    const car1 = new Car("Honda", "Civic", 2018, "Petrol");
+   
+
+    // Display output
+    const outputDiv = document.getElementById("output");
+
+    const v1 = document.createElement("p");
+    v1.textContent = `${vehicle1.getInfo()} | Old: ${vehicle1.isOld() ? "Yes" : "No"}`;
+
+    const c1 = document.createElement("p");
+    c1.textContent = `${car1.getInfo()} | Old: ${car1.isOld() ? "Yes" : "No"}`;
+
+    outputDiv.appendChild(v1);
+    outputDiv.appendChild(c1);
+  </script>
+</body>
+</html>

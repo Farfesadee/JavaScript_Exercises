@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Visit Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #info {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>👣 Visit Counter</h2>
+  <div id="info"></div>
+  <button onclick="resetCounter()">Reset Counter</button>
+
+  <script>
+    function updateVisitCount() {
+      let visitCount = localStorage.getItem('visitCount');
+      let firstVisit = localStorage.getItem('firstVisit');
+
+      if (visitCount) {
+        visitCount = parseInt(visitCount) + 1;
+      } else {
+        visitCount = 1;
+        firstVisit = new Date().toLocaleString();
+        localStorage.setItem('firstVisit', firstVisit);
+      }
+
+      localStorage.setItem('visitCount', visitCount);
+
+      const infoText = `You have visited ${visitCount} time${visitCount > 1 ? 's' : ''}.<br>` +
+                       `First visit was on: ${firstVisit}`;
+      document.getElementById('info').innerHTML = infoText;
+    }
+
+    function resetCounter() {
+      localStorage.removeItem('visitCount');
+      localStorage.removeItem('firstVisit');
+      document.getElementById('info').innerHTML = 'Visit count has been reset.';
+    }
+
+    // Run on page load
+    updateVisitCount();
+  </script>
+
+</body>
+</html>
