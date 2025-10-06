@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Practice Exercise 1: Asynchronous Joke Teller
+
+// Create a function that returns a promise which resolves with a joke after 3 seconds.
+function tellJoke() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("😂 Here’s a funny joke!");
+        }, 3000);
+    })
+    }
+
+    // Testing the function
+    console.log("Waiting for a joke...");
+    tellJoke().then(joke => {
+        console.log("Joke received:", joke);
+    });
+    </script>
+</body>
+</html>

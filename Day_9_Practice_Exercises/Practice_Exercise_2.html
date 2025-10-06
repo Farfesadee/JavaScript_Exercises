@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function deliverOrder(order) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            let success = Math.random() <= 0.5; // 50% chance of success
+
+            if (success) {
+                resolve (`"✅ Delivered: ${order}"`); 
+            } else {
+                reject(`"❌ Delivery failed: ${order}"`);
+            }
+        }, 2000)
+    });
+}
+
+// Testing the function
+console.log("Placing order for Gizdodo...");
+deliverOrder("Gizdodo Order 12345") 
+.then((message) => {
+    console.log("Success:", message);
+})
+.catch((error) => {
+    console.log("Error:", error);
+});
+    </script>
+</body>
+</html>
