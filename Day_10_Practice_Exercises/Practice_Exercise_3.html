@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Pass Rate</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
+      background-color: blanchedalmond;
+    }
+    #result {
+      font-size: 1.5em;
+      margin-top: 1em;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Student Pass Rate</h1>
+  <div id="result"></div>
+
+  <script>
+    // Mock API data
+    let apiData = `
+    {
+      "students": [
+        { "name": "Tola", "score": 78 },
+        { "name": "John", "score": 45 },
+        { "name": "Mary", "score": 92 }
+      ]
+    }
+    `;
+    
+    // Parse the data
+    let parsedData = JSON.parse(apiData);
+
+    // Function to calculate pass rate
+    function getPassRate(data) {
+      let students = data.students;
+      let total = students.length;
+      let passed = students.filter(s => s.score >= 50).length;
+      let rate = (passed / total) * 100;
+      return rate.toFixed(1); // One decimal place
+    }
+
+    // Display the result
+    let resultDiv = document.getElementById('result');
+    let passRate = getPassRate(parsedData);
+    resultDiv.textContent = `Pass Rate: ${passRate}%`;
+  </script>
+
+</body>
+</html>

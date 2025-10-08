@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Country Info Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+      background-color: blueviolet;
+    }
+    input {
+      padding: 0.5em;
+      font-size: 1em;
+      width: 70%;
+    }
+    button {
+      padding: 0.5em 1em;
+      font-size: 1em;
+      margin-left: 0.5em;
+      cursor: pointer;
+    }
+    #info {
+      margin-top: 2em;
+    }
+    img {
+      max-width: 100px;
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Country Info Finder</h1>
+  <input type="text" id="countryInput" placeholder="Enter a country name (e.g., 'Nigeria')">
+  <button onclick="getCountryInfo()">Search</button>
+
+  <div id="info"></div>
+
+  <script>
+    async function getCountryInfo() {
+      let country = document.getElementById('countryInput').value;
+      let infoDiv = document.getElementById('info');
+      infoDiv.innerHTML = '';
+
+      if (!country) {
+        infoDiv.textContent = 'Please enter a country name.';
+        return;
+      }
+
+      try {
+        let response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+        let data = await response.json();
+
+        if (!data || !data[0]) {
+          infoDiv.textContent = 'Country not found.';
+          return;
+        }
+
+        let countryData = data[0];
+        infoDiv.innerHTML = `
+          <img src="${countryData.flags.png}" alt="Flag of ${country}">
+          <p><strong>Capital:</strong> ${countryData.capital[0]}</p>
+          <p><strong>Population:</strong> ${countryData.population.toLocaleString()}</p>
+          <p><strong>Region:</strong> ${countryData.region}</p>
+        `;
+      } catch (error) {
+        infoDiv.textContent = 'Error fetching country data.';
+        console.error(error);
+      }
+    }
+  </script>
+
+</body>
+</html>
